@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet } from 'react-native'
 import Hello from './Hello'
-import ToggleLanguage from './components/ToggleLanguage';
+import ToggleLanguage from './src/components/ToggleLanguage';
+import MainStack from './src/navigation/MainStack';
+import UserProvider from './src/context/UserProvider';
 
 
 const App: React.FC = () => {
@@ -10,20 +12,11 @@ const App: React.FC = () => {
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     
     return (
-        <View style={styles.container} >
-            {/* <Hello /> */}
-            <ToggleLanguage 
-                isEnabled={isEnabled} 
-                toggleSwitch={toggleSwitch} 
-            />
-            
-            { 
-                isEnabled ?
-                <View style={{backgroundColor: 'blue', flex: 0.3, height: 100, width: 100}} /> 
-                :
-                <View style={{backgroundColor: 'red', flex: 0.5, height: 100, width: 100}} />
-            }
-        </View>
+        <UserProvider>
+            <View style={styles.container} >
+                <MainStack />
+            </View>
+        </UserProvider>
     )
 
 }
@@ -34,8 +27,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'row',
-        height: 100,
-        width: 50,
+        width: '100%',
+        height: '100%',
         padding: 20,
     }
 })
